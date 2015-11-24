@@ -1,0 +1,40 @@
+var generateMap = {
+	accessToken : '<%= ENV["mapbox_access_token"] %>',
+	setInitialListeners: function() {
+		// console.log('<%= ENV["mapbox_access_token"] %>');
+		L.mapbox.accessToken = this.accessToken;
+		var map = L.mapbox.map('map-for-user', 'mapbox.streets');
+		map.scrollWheelZoom.disable();
+		map.addControl(L.mapbox.geocoderControl('mapbox.places', {
+			autocomplete: true
+		}));
+		var current = map.locate();
+		map.on('locationfound', function(e) {
+			map.setView(e.latlng, 11);
+		});
+		this.generateIcon(map);
+	},
+
+	generateIcon: function(map) {
+		map.on('click', function(e) {
+			geojson = (
+			    {
+			    "type": "Feature",
+			    "geometry": {
+			      "type": "Point",
+			      "coordinates": [e.latlng.lng, e.latlng.lat ]
+			    },
+			    "properties": {
+			      "title": "Mapbox SF",
+			      "description": "155 9th St, San Francisco",
+			      "marker-color": "#fc4353",
+			      "marker-size": "large",
+			      "marker-symbol": "harbor"
+			    }
+	    	})
+    		map.featureLayer.setGeoJSON(geojson);
+    		$('#user_latitude').val(e.latlng.lat);
+    		$('#user_longitude').val(e.latlng.lng);
+    	})
+	}
+};
