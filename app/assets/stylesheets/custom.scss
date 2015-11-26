@@ -23,3 +23,21 @@
 .centered {
 	text-align: center;
 }
+
+#main-map-container {
+	display: flex;
+	flex-direction: row;
+}
+#checks-list {
+	width: 20%;
+	flex-shrink: 0;
+}
+
+#main-map {
+	height: 700px;
+	flex-grow: 1;
+}
+
+.leaflet-popup-content img {
+  max-width:100%;
+ }

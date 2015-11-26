@@ -1,0 +1,180 @@
+function GenerateMap() {
+    this.token = '<%= ENV["mapbox_access_token"] %>';
+    this.surfJson = [];
+    this.bizJson = [];
+    this.map = "";
+    this.geoControl = "";
+    this.spotsLayer = "";
+    this.businessesLayer = "";
+};
+
+GenerateMap.prototype.setMap = function(mapId, zoom) {
+    var self = this;
+    L.mapbox.accessToken = this.token;
+    var map = L.mapbox.map(mapId, 'mapbox.streets');
+    this.spotsLayer = L.mapbox.featureLayer().addTo(map);
+    this.businessLayer = L.mapbox.featureLayer().addTo(map);    
+    map.scrollWheelZoom.disable();
+    this.geoControl = L.mapbox.geocoderControl('mapbox.places', {
+        autocomplete: true
+    });
+    map.addControl(this.geoControl);
+    var current = map.locate();
+    map.on('locationfound', function(e) {
+        map.setView(e.latlng, zoom);
+    });
+    this.map = map;
+}
+
+GenerateMap.prototype.createBusinessesPoints = function() {
+    var self = this; 
+    $.ajax({
+        dataType: "json",
+        // context: this,
+        url: "/businesses/api",
+        success: function(data) {
+            var businesses = data.businesses
+            businesses.forEach(function(biz) {
+                var business = self.pointSetup(
+                    biz.longitude,
+                    biz.latitude,
+                    'restaurant',
+                    biz.name,
+                    biz.description,
+                    '#ff8888',
+                    biz.image_url,
+                    biz.link
+                );
+                self.bizJson.push(business);
+            })
+            console.log(self.bizJson);
+            self.createBusinessesLayer();
+        }
+    });
+
+}
+
+GenerateMap.prototype.createSurfPoints = function() {
+    var self = this;
+    $.ajax({
+        dataType: "json",
+        // context: this,
+        url: "/surfspots/api",
+        success: function(data) {
+            var spots = data.surfspots
+            spots.forEach(function(spot) {
+                var surfspot = self.pointSetup(
+                    spot.longitude,
+                    spot.latitude,
+                    'dam',
+                    spot.name,
+                    spot.area,
+                    '#8DEEEE',
+                    "http://i.dailymail.co.uk/i/pix/2014/03/11/article-2578213-1C2F7A7900000578-348_964x642.jpg",
+                    "http://magicseaweed.com/Sopelana-Surf-Report/1124/"
+                );
+                self.surfJson.push(surfspot);
+            })
+            self.createSpotsLayer();
+            self.showChecks();
+        }
+    });
+}
+
+GenerateMap.prototype.createSpotsLayer = function() {
+    var self = this;
+    self.spotsLayer.on('layeradd', function(e) {
+        var marker = e.layer,
+            feature = marker.feature;
+        // Create custom popup content
+        var popupContent = '<a target="_blank" class="popup" href="' + feature.properties.url + '">' +
+            '<img src="' + feature.properties.image + '" />' +
+            feature.properties.title +
+            '</a>';
+        // http://leafletjs.com/reference.html#popup
+        marker.bindPopup(popupContent, {
+            closeButton: false,
+            minWidth: 320
+        });
+    });
+    // Add features to the map
+    self.spotsLayer.setGeoJSON(self.surfJson);
+}
+
+GenerateMap.prototype.createBusinessesLayer = function() {
+    var self = this;
+    self.businessLayer.on('layeradd', function(e) {
+        var marker = e.layer,
+            feature = marker.feature;
+        // Create custom popup content
+        var popupContent = '<a target="_blank" class="popup" href="' + feature.properties.url + '">' +
+            '<img src="' + feature.properties.image + '" />' +
+            feature.properties.title +
+            '</a>';
+        // http://leafletjs.com/reference.html#popup
+        marker.bindPopup(popupContent, {
+            closeButton: false,
+            minWidth: 320
+        });
+    });
+    self.businessLayer.setGeoJSON(self.bizJson);
+
+}
+
+GenerateMap.prototype.showChecks = function() {
+    var self = this;
+    self.spotsLayer.on('click', function(e) {
+        var marker = e.layer,
+            feature = marker.feature;
+        $('#checks-list').text(feature.properties.title);
+        $('#checks-list').fadeIn();
+    })
+}
+
+GenerateMap.prototype.createClickPoint = function() {
+    var self = this;
+    this.map.on('click', function(e) {
+        var type = ($('#user_business_type').val() === 'Restaurant') ? 'restaurant' : 'shop';
+        var geojson = self.pointSetup(e.latlng.lng,
+            e.latlng.lat,
+            type,
+            $('#user_business_name').val(),
+            $('#user_address').val(),
+            '#ff8888');
+        self.map.featureLayer.setGeoJSON(geojson);
+        self.map.setView(e.latlng);
+        $('#user_latitude').val(e.latlng.lat);
+        $('#user_longitude').val(e.latlng.lng);
+
+    })
+}
+
+GenerateMap.prototype.searchPoint = function() {
+    var self = this;
+    self.geoControl.on('select', function(e) {
+        var geojson = self.pointSetup(e.feature.geometry.coordinates[0], e.feature.geometry.coordinates[1], 'restaurant')
+        self.map.featureLayer.setGeoJSON(geojson);
+        $('#user_latitude').val(e.feature.geometry.coordinates[1]);
+        $('#user_longitude').val(e.feature.geometry.coordinates[0]);
+    })
+}
+
+GenerateMap.prototype.pointSetup = function(lng, lat, type, title, description, color, image, url) {
+    var geojson = ({
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [lng, lat]
+        },
+        "properties": {
+            "title": title,
+            "description": description,
+            "image": image,
+            "url": url,
+            "marker-color": color,
+            "marker-size": "large",
+            "marker-symbol": type
+        }
+    })
+    return geojson;
+}
