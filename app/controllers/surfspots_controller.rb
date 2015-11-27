@@ -1,5 +1,5 @@
 class SurfspotsController < ApplicationController
-	skip_before_filter :authenticate_user!, :only => [:index, :spots]
+	skip_before_filter :authenticate_user!
 	def index
 	end
 
@@ -11,6 +11,9 @@ class SurfspotsController < ApplicationController
       		return
     	end
     	render json: {surfspots: surfspots}
+	end
+	def show
+		@surfspot = Surfspot.find(params[:id])
 	end
 
 	def new

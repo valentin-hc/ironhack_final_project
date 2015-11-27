@@ -34,6 +34,11 @@
 </div>
 <div class="col-md-4">
   <h4>My business Information</h4>
+  <div class="field">
+    <p><img class="avatar-edit" src="<%= current_user.business_avatar.url(:medium) %>"></p>
+    <%= f.label :business_avatar %><br/ >
+    <%= f.file_field :business_avatar %>
+  </div>
   
   <div>
     <%= f.label :business_name %><br/ >
@@ -53,7 +58,7 @@
   </div>
   <div>
     <%= f.label :business_type %><br/ >
-    <%= f.select(:business_type, ['Surfshop', 'Restaurant']) %>
+    <%= f.select(:business_type, ['Other','Surfshop', 'Restaurant', 'Photograph']) %>
   </div>
   <div>
     <%= f.label :business_description %><br/ >

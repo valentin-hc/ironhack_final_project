@@ -13,7 +13,7 @@ GenerateMap.prototype.setMap = function(mapId, zoom) {
     L.mapbox.accessToken = this.token;
     var map = L.mapbox.map(mapId, 'mapbox.streets');
     this.spotsLayer = L.mapbox.featureLayer().addTo(map);
-    this.businessLayer = L.mapbox.featureLayer().addTo(map);    
+    this.businessLayer = L.mapbox.featureLayer().addTo(map);
     map.scrollWheelZoom.disable();
     this.geoControl = L.mapbox.geocoderControl('mapbox.places', {
         autocomplete: true
@@ -27,7 +27,7 @@ GenerateMap.prototype.setMap = function(mapId, zoom) {
 }
 
 GenerateMap.prototype.createBusinessesPoints = function() {
-    var self = this; 
+    var self = this;
     $.ajax({
         dataType: "json",
         // context: this,
@@ -38,7 +38,7 @@ GenerateMap.prototype.createBusinessesPoints = function() {
                 var business = self.pointSetup(
                     biz.longitude,
                     biz.latitude,
-                    'restaurant',
+                    biz.business_type,
                     biz.name,
                     biz.description,
                     '#ff8888',
@@ -71,7 +71,7 @@ GenerateMap.prototype.createSurfPoints = function() {
                     spot.area,
                     '#8DEEEE',
                     "http://i.dailymail.co.uk/i/pix/2014/03/11/article-2578213-1C2F7A7900000578-348_964x642.jpg",
-                    "http://magicseaweed.com/Sopelana-Surf-Report/1124/"
+                    "/surfspots/" + spot.id
                 );
                 self.surfJson.push(surfspot);
             })
@@ -131,13 +131,37 @@ GenerateMap.prototype.showChecks = function() {
     })
 }
 
+GenerateMap.prototype.filterPoints = function() {
+    var self = this;
+    $('#filter-all').on('click', function() {
+        $('#filter-spots').removeClass('active');
+        $('#filter-businesses').removeClass('active');
+        this.className = 'active';
+        self.businessLayer.setGeoJSON(self.bizJson);
+        self.spotsLayer.setGeoJSON(self.surfJson);
+    });
+    $('#filter-spots').on('click', function() {
+        $('#filter-all').removeClass('active');
+        $('#filter-businesses').removeClass('active');
+        this.className = 'active';
+        self.spotsLayer.setGeoJSON(self.surfJson);
+        self.businessLayer.setGeoJSON("");
+    });
+    $('#filter-businesses').on('click', function() {
+        $('#filter-spots').removeClass('active');
+        $('#filter-all').removeClass('active');
+        this.className = 'active';
+        self.businessLayer.setGeoJSON(self.bizJson);
+        self.spotsLayer.setGeoJSON("");
+    });
+}
+
 GenerateMap.prototype.createClickPoint = function() {
     var self = this;
     this.map.on('click', function(e) {
-        var type = ($('#user_business_type').val() === 'Restaurant') ? 'restaurant' : 'shop';
         var geojson = self.pointSetup(e.latlng.lng,
             e.latlng.lat,
-            type,
+            'marker',
             $('#user_business_name').val(),
             $('#user_address').val(),
             '#ff8888');

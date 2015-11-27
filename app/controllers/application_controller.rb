@@ -29,7 +29,8 @@ class ApplicationController < ActionController::Base
    		:business_type,
       :website_linl,
    		:longitude,
-   		:latitude) } 
+   		:latitude,
+      :business_avatar) } 
   end
 
 
