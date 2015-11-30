@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-	skip_before_filter :authenticate_user!#, :only => [:index, :businesses, :show_public]
+	skip_before_filter :authenticate_user!, :only => [:index, :businesses, :show_public]
 	def index
 		@users = User.all
 	end

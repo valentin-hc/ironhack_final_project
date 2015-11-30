@@ -27,42 +27,85 @@
         <div class="form-group-title"><%= f.label :wave_height %></div>
       </div>
       <div class="field radio-buttons">
-        <div class="myradio"><%= f.radio_button :wave_height, '0-0,5' %> 0-0,5</div>
-        <div class="myradio"><%= f.radio_button :wave_height, '0,5-1' %> 0,5-1</div>
-        <div class="myradio"><%= f.radio_button :wave_height, '1-1,5' %> 1-1,5</div>
-        <div class="myradio"><%= f.radio_button :wave_height, '1,5-2' %> 1,5-2</div>
-        <div class="myradio"><%= f.radio_button :wave_height, '2-3' %> 2-3</div>
-        <div class="myradio"><%= f.radio_button :wave_height, '3-4' %> 3-4</div>
-        <div class="myradio"><%= f.radio_button :wave_height, '4+' %> 4+</div>
+        
+        <label for="update_wave_height_0-05">
+          <div class="myradio"><%= f.radio_button :wave_height, '0-0,5' %> 0-0,5</div>
+        </label>
+        <label for="update_wave_height_05-1">
+          <div class="myradio"><%= f.radio_button :wave_height, '0,5-1' %> 0,5-1</div>
+        </label>
+        <label for="update_wave_height_1-15">
+          <div class="myradio"><%= f.radio_button :wave_height, '1-1,5' %> 1-1,5</div>
+        </label>
+        <label for="update_wave_height_15-2">
+          <div class="myradio"><%= f.radio_button :wave_height, '1,5-2' %> 1,5-2</div>
+        </label>
+        <label for="update_wave_height_2-3">
+          <div class="myradio"><%= f.radio_button :wave_height, '2-3' %> 2-3</div>
+        </label>
+        <label for="update_wave_height_3-4">
+          <div class="myradio"><%= f.radio_button :wave_height, '3-4' %> 3-4</div>
+        </label>
+        <label for="update_wave_height_4">
+          <div class="myradio"><%= f.radio_button :wave_height, '4+' %> 4+</div>
+        </label>
       </div>
     </div>
     <div class="form-group">
       <div class="form-group-title"><%= f.label :wind %></div>
       <div class="field radio-buttons">
-        <div class="myradio"><%= f.radio_button :wind, 'none' %> No wind</div>
-        <div class="myradio"><%= f.radio_button :wind, 'weak' %> Weak</div>
-        <div class="myradio"><%= f.radio_button :wind, 'moderate' %> Moderate</div>
-        <div class="myradio"><%= f.radio_button :wind, 'strong' %> Strong</div>
-        <div class="myradio"><%= f.radio_button :wind, 'hurricane' %> Hurricane !</div>
+        <label for="update_wind_none">
+          <div class="myradio"><%= f.radio_button :wind, 'none' %> No wind</div>
+        </label>
+        <label for="update_wind_weak">
+          <div class="myradio"><%= f.radio_button :wind, 'weak' %> Weak</div>
+        </label>
+        <label for="update_wind_moderate">
+          <div class="myradio"><%= f.radio_button :wind, 'moderate' %> Moderate</div>
+        </label>
+        <label for="update_wind_strong">
+          <div class="myradio"><%= f.radio_button :wind, 'strong' %> Strong</div>
+        </label>
+        <label for="update_wind_hurricane">
+          <div class="myradio"><%= f.radio_button :wind, 'hurricane' %> Hurricane !</div>
+        </label>
       </div>
     </div>
     <div class="form-group">
       <div class="form-group-title"><%= f.label :crowds %></div>
       <div class="field radio-buttons">
-        <div class="myradio"><%= f.radio_button :crowds, 'empty' %> No crowd</div>
-        <div class="myradio"><%= f.radio_button :crowds, 'some people' %> Some people</div>
-        <div class="myradio"><%= f.radio_button :crowds, 'crowded' %> Crowded</div>
-        <div class="myradio"><%= f.radio_button :crowds, 'very crowded' %> Very crowded</div>
+        <label for="update_crowds_empty">
+          <div class="myradio"><%= f.radio_button :crowds, 'empty' %> No crowd</div>
+        </label>
+        <label for="update_crowds_some_people">
+          <div class="myradio"><%= f.radio_button :crowds, 'some people' %> Some people</div>
+        </label>
+        <label for="update_crowds_crowded">
+          <div class="myradio"><%= f.radio_button :crowds, 'crowded' %> Crowded</div>
+        </label>
+        <label for="update_crowds_very_crowded">
+          <div class="myradio"><%= f.radio_button :crowds, 'very crowded' %> Very crowded</div>
+        </label>
       </div>
     </div>
     <div class="form-group">
       <div class="form-group-title"><%= f.label :rating %></div>
       <div class="field radio-buttons">
-        <div class="myradio"><%= f.radio_button :rating, '1' %> 1/5</div>
-        <div class="myradio"><%= f.radio_button :rating, '2' %> 2/5</div>
-        <div class="myradio"><%= f.radio_button :rating, '3' %> 3/5</div>
-        <div class="myradio"><%= f.radio_button :rating, '4' %> 4/5</div>
-        <div class="myradio"><%= f.radio_button :rating, '5' %> 5/5</div>
+        <label for="update_rating_1">
+          <div class="myradio"><%= f.radio_button :rating, '1' %> 1/5</div>
+        </label>
+        <label for="update_rating_2">
+          <div class="myradio"><%= f.radio_button :rating, '2' %> 2/5</div>
+        </label>
+        <label for="update_rating_3">
+          <div class="myradio"><%= f.radio_button :rating, '3' %> 3/5</div>
+        </label>
+        <label for="update_rating_4">
+          <div class="myradio"><%= f.radio_button :rating, '4' %> 4/5</div>
+        </label>
+        <label for="update_rating_5">
+          <div class="myradio"><%= f.radio_button :rating, '5' %> 5/5</div>
+        </label>
       </div>
     </div>
     <div class="form-group">

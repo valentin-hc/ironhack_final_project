@@ -1,4 +1,5 @@
 class UpdatesController < ApplicationController
+	skip_before_filter :authenticate_user!, :only => [:show]
 	def new
 		@surfspot = Surfspot.find(params[:surfspot_id])
 		# binding.pry
@@ -18,6 +19,11 @@ class UpdatesController < ApplicationController
 		else
 		    redirect_to new_surfspot_update_path(params[:surfspot_id])
 		end
+	end
+	def show
+		@update = Update.find(params[:id])
+		@surfspot = Surfspot.find (@update.surfspot_id)
+		@user = User.find(@update.user_id)
 	end
 
 	private

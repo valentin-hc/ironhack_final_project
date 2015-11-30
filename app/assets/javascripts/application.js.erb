@@ -25,7 +25,7 @@ $(document).on('page:change', function() {
 		currentMap.searchPoint();
 	};
 	if ( $('#main-map').length != 0) {
-		$('#checks-list').hide();
+		$('#updates-list').hide();
 		var currentMap = new GenerateMap();
 		currentMap.setMap('main-map', 10);
 		currentMap.createBusinessesPoints();

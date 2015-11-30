@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :business_avatar, :content_type => /\Aimage\/.*\Z/
   has_many :updates
   has_many :surfspots, through: :updates
+  has_many :advertisements
 end

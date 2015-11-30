@@ -59,18 +59,19 @@ GenerateMap.prototype.createSpotsLayer = function() {
     self.spotsLayer.on('layeradd', function(e) {
         var marker = e.layer,
             feature = marker.feature;
-        // Create custom popup content
+        var imageUrl = feature.properties.image;;
+        if (feature.info.spotupdates[0] !== undefined) {
+            imageUrl = feature.info.spotupdates[0][1][0];
+        }
         var popupContent = '<a target="_blank" class="popup" href="' + feature.properties.url + '">' +
-            '<img src="' + feature.properties.image + '" />' +
+            '<img src="' + imageUrl + '" />' +
             feature.properties.title +
             '</a>';
-        // http://leafletjs.com/reference.html#popup
         marker.bindPopup(popupContent, {
             closeButton: false,
             minWidth: 320
         });
     });
-    // Add features to the map
     self.spotsLayer.setGeoJSON(self.surfJson);
 }
 
@@ -79,12 +80,10 @@ GenerateMap.prototype.createBusinessesLayer = function() {
     self.businessLayer.on('layeradd', function(e) {
         var marker = e.layer,
             feature = marker.feature;
-        // Create custom popup content
         var popupContent = '<a target="_blank" class="popup" href="' + feature.properties.url + '">' +
             '<img src="' + feature.properties.image + '" />' +
             feature.properties.title +
             '</a>';
-        // http://leafletjs.com/reference.html#popup
         marker.bindPopup(popupContent, {
             closeButton: false,
             minWidth: 320
@@ -100,24 +99,55 @@ GenerateMap.prototype.showChecks = function() {
         var marker = e.layer,
             feature = marker.feature;
         var spotHtml = "";
+        var newUpdate = '<a href="/surfspots/'+ feature.info.id + '/updates/new"><div class="btn btn-primary new-update">New Update for this spot</div></a>';
+        spotHtml += newUpdate;
 
         feature.info.spotupdates.forEach(function (update) {
-            // console.log(update);
             var upPics = '<div class="update-pics"><div class="up-pic">'
             update[1].forEach(function (url) {
                 upPics += '<img src="' + url + '"/>'
             })
             upPics += "</div></div>"
-            var upDiv = '<div class="update-box"><h4>' + update[2] + '</h4>' + upPics + '</div>'
-
-            // console.log(upDiv);
+            var upDiv = '<a href="" class="modal-link" data-url-call="/surfspots/'+ feature.info.id + '/updates/'+ update[0].id + '.json" data-toggle="modal" data-target="#myModal"><div class="update-box"><h4>' + update[2] + '</h4>' + upPics + '</div></a>'
             spotHtml += upDiv;
-            console.log(feature.info.spotupdates[0][1][0]); // integrate this ASAP
         })
-        // console.log(feature.info.spotupdates);
-        $('#checks-list').html(spotHtml);
-        $('#checks-list').fadeIn();
+        $('#updates-list').html(spotHtml);
+        $('#updates-list').fadeIn();
+        self.fillModal();
     })
+}
+GenerateMap.prototype.fillModal = function() {
+    var self = this;
+    $('.modal-link').on('click', function() {
+        var url = $(this).attr('data-url-call');
+        console.log(url);
+        $.ajax({
+            dataType: "json",
+            // context: this,
+            url: url,
+            success: function(data) {
+                $('.modal-title').text(data.modal_info.surfspot.name + ' on ' + data.modal_info.pictures_time)
+                var updatePics = "";
+                data.modal_info.pictures.forEach(function(url) {
+                    updatePics += '<img src="' + url + '" class="public-avatar"/>'
+                })
+                $('.modal-pictures').html(updatePics);
+                var conditions = "";
+                conditions += '<div class="cond-detail"><p>Waves: ' + data.modal_info.update.wave_height + ' m</p>'
+                conditions += '<p>Wind: ' + data.modal_info.update.wind + '</p></div>'
+                conditions += '<div class="cond-detail"><p>Crowds: ' + data.modal_info.update.crowds + '</p>'
+                var rating = "";
+                for (var i = 0; i < data.modal_info.update.rating; i++) {
+                    rating += '<span class="glyphicon glyphicon-star"></span>';
+                };
+                conditions += '<p>Rating: ' + rating + '</p></div>'
+                conditions += '<div class="cond-detail"><p>Comment: ' + data.modal_info.update.comment + '</p></div>'
+                $('.conditions').html(conditions);
+            }
+        })
+
+    })
+
 }
 
 GenerateMap.prototype.filterPoints = function() {
