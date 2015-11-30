@@ -18,11 +18,11 @@
 //= require_tree .
 
 $(document).on('page:change', function() {
-	if (  $('#map-for-user').length != 0 ) {
+	if ( $('#map-for-user').length != 0 ) {
 		var currentMap = new GenerateMap();
 		currentMap.setMap('map-for-user', 14);
 		currentMap.createClickPoint();
-		// currentMap.searchPoint();
+		currentMap.searchPoint();
 	};
 	if ( $('#main-map').length != 0) {
 		$('#checks-list').hide();

@@ -1,6 +1,7 @@
 class SurfspotsController < ApplicationController
 	skip_before_filter :authenticate_user!
 	def index
+		@surfspots = Surfspot.all
 	end
 
 	def spots

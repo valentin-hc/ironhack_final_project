@@ -11,29 +11,32 @@ Surfspot.destroy_all
 
 puts "______Creating new spots________"
 
-Surfspot.create(name: "Spot 1",
+Surfspot.create(name: "Tyson",
 				country: "Spain",
 				area: "Barcelona",
-				description: "Whatever",
+				description: "Tyson is a hollow Beachbreak, very fun when it's on",
 				breaktype: "Beachbreak",
 				longitude: 2.208294,
-				latitude: 41.39345)
+				latitude: 41.39345,
+				avatar: File.new("public/images/tyson.jpg"))
 
-Surfspot.create(name: "Spot 2",
+Surfspot.create(name: "Barceloneta",
 				country: "Spain",
 				area: "Barcelona",
-				description: "Whatever",
-				breaktype: "Reefbreak",
+				description: "Nice rolling waves, worth checking when Tyson is not breaking well",
+				breaktype: "Beachbreak",
 				longitude: 2.203230,
-				latitude: 41.390525)
+				latitude: 41.390525,
+				avatar: File.new("public/images/barceloneta.jpg"))
 
-Surfspot.create(name: "Spot 3",
+Surfspot.create(name: "Mar Bella",
 				country: "Spain",
 				area: "Barcelona",
-				description: "Whatever",
+				description: "Cool waves",
 				breaktype: "Sandbar",
 				longitude: 2.218294,
-				latitude: 41.404046)
+				latitude: 41.404046,
+				avatar: File.new("public/images/mar-bella.jpg"))
 
 
 Surfspot.create(name: "Sopelana",
@@ -42,7 +45,8 @@ Surfspot.create(name: "Sopelana",
 				description: "Whatever",
 				breaktype: "Beachbreak with rocks",
 				longitude: -2.998280,
-				latitude: 43.387787)
+				latitude: 43.387787,
+				avatar: File.new("public/images/sope.jpg"))
 
 Surfspot.create(name: "La Salvaje",
 				country: "Spain",
@@ -50,4 +54,5 @@ Surfspot.create(name: "La Salvaje",
 				description: "Whatever",
 				breaktype: "Beachbreak with rocks",
 				longitude: -3.006734,
-				latitude: 43.383405)
+				latitude: 43.383405,
+				avatar: File.new("public/images/la-salvaje.jpg"))

@@ -29,13 +29,21 @@
 <div class="well">
 	<div class="tab-content">
 		<div class="tab-pane fade in active" id="tab1">
-			<h3> <%= @profile.business_name %></h3>
-			<p><img class="useravatar" src="<%= current_user.business_avatar.url(:medium) %>"></p>
-			<p> <%= @profile.address %>, <%= @profile.city %>, <%= @profile.zip_code %> </p>
-			<p> <%= @profile.business_type %> </p>
-			<p> <%= @profile.website_link %> </p>
-			<p> <%= @profile.business_description %> </p>
-			<%= link_to "Edit my profile", edit_user_registration_path %>
+			<div class="row">
+				<div class="col-md-4">
+					<h3> <%= @profile.business_name %></h3>
+					<p><img class="useravatar" src="<%= current_user.business_avatar.url(:medium) %>"></p>
+				</div>
+				<div class="col-md-4">
+					<p> <%= @profile.address %>, <%= @profile.city %>, <%= @profile.zip_code %> </p>
+					<p> <%= @profile.business_type %> </p>
+					<p> <%= @profile.website_link %> </p>
+					<p> <%= @profile.business_description %> </p>
+				</div>
+				<div class="col-md-4">
+					<%= link_to "Edit my profile", edit_user_registration_path %>
+				</div>
+			</div>
 		</div>
 		<div class="tab-pane fade in" id="tab2">
 			<h3>This is tab 2</h3>

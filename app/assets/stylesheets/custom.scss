@@ -19,6 +19,14 @@
 	border-width: 1px 2px 2px 1px;
 	background-color:white
 }
+.public-avatar {
+  width: 100%;
+  padding:8px;
+  border:solid;
+  border-color: #dddddd #aaaaaa #aaaaaa #dddddd;
+  border-width: 1px 2px 2px 1px;
+  background-color:white
+}
 
 .centered {
 	text-align: center;
@@ -31,6 +39,8 @@
 #checks-list {
 	width: 20%;
 	flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 #main-map {
@@ -77,4 +87,84 @@
 .menu-ui a.active:hover {
   background:#3887BE;
   color:#FFF;
+}
+
+
+.form-wrapper {
+  background-color: #EEEEEE;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  background-color: #EEEEEE;
+}
+
+.form-group-title {
+  padding: 10px;
+  font-size: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+}
+.radio-buttons {
+  display: flex;
+  flex-direction: row;
+}
+.myradio {
+  margin: 2px;
+  padding: 10px;
+  flex-grow: 1;
+  border-radius: 5px;
+  // display: flex;
+  // flex-direction: column;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #006dcc;
+  *background-color: #0044cc;
+  background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+  background-repeat: repeat-x;
+  border-color: #0044cc #0044cc #002a80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+.timebox {
+  padding: 7px;
+}
+
+.update-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #EEEEEE;
+  border: 1px, solid, white;
+  margin-bottom: 8px;
+  padding: 4px;
+
+
+
+}
+.update-pics {
+  display: flex;
+  flex-direction: row;
+}
+.up-pic {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+}
+.up-pic img {
+  max-width: 80px;
+  max-height: 80px;
+  border-radius: 50%;
 }

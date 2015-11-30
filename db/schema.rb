@@ -11,22 +11,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151127151519) do
+ActiveRecord::Schema.define(version: 20151129155232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "pictures", force: :cascade do |t|
+    t.integer  "update_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  add_index "pictures", ["update_id"], name: "index_pictures_on_update_id", using: :btree
+
   create_table "surfspots", force: :cascade do |t|
-    t.string   "name",                                 null: false
+    t.string   "name",                                         null: false
     t.string   "country"
     t.string   "area"
     t.string   "description"
-    t.decimal  "longitude",   precision: 10, scale: 6
-    t.decimal  "latitude",    precision: 10, scale: 6
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.decimal  "longitude",           precision: 10, scale: 6
+    t.decimal  "latitude",            precision: 10, scale: 6
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.string   "breaktype"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
+
+  create_table "updates", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "surfspot_id"
+    t.datetime "pictures_taken_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "wave_height"
+    t.string   "wind"
+    t.string   "crowds"
+    t.string   "rating"
+    t.string   "comment"
+  end
+
+  add_index "updates", ["surfspot_id"], name: "index_updates_on_surfspot_id", using: :btree
+  add_index "updates", ["user_id"], name: "index_updates_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                                                 default: "",    null: false
