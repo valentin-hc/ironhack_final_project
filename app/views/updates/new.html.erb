@@ -91,6 +91,9 @@
     <div class="form-group">
       <div class="form-group-title"><%= f.label :rating %></div>
       <div class="field radio-buttons">
+        <label for="update_rating_0">
+          <div class="myradio"><%= f.radio_button :rating, '0' %> 0/5</div>
+        </label>
         <label for="update_rating_1">
           <div class="myradio"><%= f.radio_button :rating, '1' %> 1/5</div>
         </label>
@@ -111,6 +114,12 @@
     <div class="form-group">
       <div class="form-group-title"><%= f.label :comment %></div>
       <div class="form-group-title"><%= f.text_area :comment, :class => 'myradio', :placeholder => "Your comment here" %></div>
+    </div>
+    <div class="form-group">
+    <div class="form-group-title"><%= f.label :choose_special %></div>
+    <label for="update_choose_special">
+    <div class="myradio"><%= f.select( :choose_special, @specials) %></div>
+    </label>
     </div>
     <div class="actions">
       <%= f.submit nil, :class => 'btn btn-primary' %>

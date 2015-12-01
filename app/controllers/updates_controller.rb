@@ -4,6 +4,11 @@ class UpdatesController < ApplicationController
 		@surfspot = Surfspot.find(params[:surfspot_id])
 		# binding.pry
 		@update = Update.new
+		@specials = []
+		specials = current_user.specials.all
+		specials.each do |special|
+			@specials << special.title
+		end
 	end
 	def create
 		@surfspot = Surfspot.find(params[:surfspot_id])
@@ -24,10 +29,11 @@ class UpdatesController < ApplicationController
 		@update = Update.find(params[:id])
 		@surfspot = Surfspot.find (@update.surfspot_id)
 		@user = User.find(@update.user_id)
+		@special = Special.where(["title = ? and user_id = ?", @update.choose_special, @user.id])
 	end
 
 	private
 	def update_params
-		params.require(:update).permit(:pictures_taken_at, :wave_height, :wind, :crowds, :rating, :comment)
+		params.require(:update).permit(:pictures_taken_at, :wave_height, :wind, :crowds, :rating, :comment, :choose_special)
 	end
 end

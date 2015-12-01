@@ -22,7 +22,7 @@ json.spots @surfspots do |surfspot|
 			update_time = update.updated_at.strftime('%A, %d %b %Y %l:%M %p')
 			update_pics = []
 			update.pictures.each do |pic|
-				update_pics << pic.image.url
+				update_pics << pic.image.url(:medium)
 			end
 			updates << [update, update_pics, update_time]
 		end

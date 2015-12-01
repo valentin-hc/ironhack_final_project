@@ -120,7 +120,6 @@ GenerateMap.prototype.fillModal = function() {
     var self = this;
     $('.modal-link').on('click', function() {
         var url = $(this).attr('data-url-call');
-        console.log(url);
         $.ajax({
             dataType: "json",
             // context: this,
@@ -137,12 +136,25 @@ GenerateMap.prototype.fillModal = function() {
                 conditions += '<p>Wind: ' + data.modal_info.update.wind + '</p></div>'
                 conditions += '<div class="cond-detail"><p>Crowds: ' + data.modal_info.update.crowds + '</p>'
                 var rating = "";
-                for (var i = 0; i < data.modal_info.update.rating; i++) {
-                    rating += '<span class="glyphicon glyphicon-star"></span>';
-                };
+                if (data.modal_info.update.rating === '0') {
+                    rating += '<span class="glyphicon glyphicon-ban-circle"></span>'
+                } else {
+                    for (var i = 0; i < data.modal_info.update.rating; i++) {
+                        rating += '<span class="glyphicon glyphicon-star"></span>';
+                    };
+                }
                 conditions += '<p>Rating: ' + rating + '</p></div>'
                 conditions += '<div class="cond-detail"><p>Comment: ' + data.modal_info.update.comment + '</p></div>'
                 $('.conditions').html(conditions);
+                var contributor = '<h3> Surfing conditions update provided by ' + '<a href="' + data.modal_info.contributor.link + '">' + data.modal_info.contributor.name + '</a></h3>'
+                    contributor += '<p>' + data.modal_info.contributor.address + ', ' + data.modal_info.contributor.city + '</p>'
+                $('.contributor').html(contributor);
+                var chosenAd = ""
+                    chosenAd += '<p><img src="' + data.modal_info.special.specimg + '" class="public-special"/> </p>';
+                    chosenAd += '<h3>' + data.modal_info.special.special.title + '</h3>';
+                    chosenAd += '<p>' + data.modal_info.special.special.description + '</p>';
+                    chosenAd += '<p>' + data.modal_info.special.special.days_applicable + '</p>';
+                $('.chosen-add').html(chosenAd);
             }
         })
 

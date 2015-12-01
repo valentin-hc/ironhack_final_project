@@ -46,7 +46,41 @@
 			</div>
 		</div>
 		<div class="tab-pane fade in" id="tab2">
-			<h3>This is tab 2</h3>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<%= form_for(@special, as: @special, url: specials_path) do |f| %>
+						<div class="field">
+							<%= f.label :title %><br/ >
+							<%= f.text_field :title %>
+						</div>
+						<div class="field">
+							<%= f.label :description %><br/ >
+							<%= f.text_area :description %>
+						</div>
+						<div class="field">
+							<%= f.label :days_applicable %><br/ >
+							<%= f.text_field :days_applicable %>
+						</div>
+						<div class="field">
+							<%= f.label :image %><br/ >
+							<%= f.file_field :image %>
+						</div>
+						<div class="actions">
+							<%= f.submit "Create new Ad", :class => 'btn btn-primary' %>
+						</div>
+						<% end %>
+					</div>
+					<div class="col-md-8">
+						<% @specials.each do |special| %>
+						<h4><%= special.title %></h4>
+						<p><%= special.description %></p>
+						<p><%= special.days_applicable %></p>
+						<img class="useravatar" src="<%= special.image.url(:medium) %>">
+						<% end %>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="tab-pane fade in" id="tab3">
 			<h3>This is tab 3</h3>

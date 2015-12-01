@@ -5,6 +5,8 @@ class ProfilesController < ApplicationController
 	end
 	def show
 		@profile = current_user
+		@special = Special.new
+		@specials = current_user.specials
 	end
 	def show_public
 		@profile = User.find(params[:id])

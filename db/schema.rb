@@ -11,19 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130194330) do
+ActiveRecord::Schema.define(version: 20151201135909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "advertisements", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "title",      null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "advertisements", ["user_id"], name: "index_advertisements_on_user_id", using: :btree
 
   create_table "pictures", force: :cascade do |t|
     t.integer  "update_id"
@@ -36,6 +27,21 @@ ActiveRecord::Schema.define(version: 20151130194330) do
   end
 
   add_index "pictures", ["update_id"], name: "index_pictures_on_update_id", using: :btree
+
+  create_table "specials", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "title",              null: false
+    t.string   "description"
+    t.string   "days_applicable"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  add_index "specials", ["user_id"], name: "index_specials_on_user_id", using: :btree
 
   create_table "surfspots", force: :cascade do |t|
     t.string   "name",                                         null: false
@@ -64,6 +70,7 @@ ActiveRecord::Schema.define(version: 20151130194330) do
     t.string   "crowds"
     t.string   "rating"
     t.string   "comment"
+    t.string   "choose_special"
   end
 
   add_index "updates", ["surfspot_id"], name: "index_updates_on_surfspot_id", using: :btree
