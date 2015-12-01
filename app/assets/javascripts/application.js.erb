@@ -18,23 +18,24 @@
 //= require_tree .
 
 $(document).on('page:change', function() {
-	if ( $('#map-for-user').length != 0 ) {
-		var currentMap = new GenerateMap();
-		currentMap.setMap('map-for-user', 14);
-		currentMap.createClickPoint();
-		currentMap.searchPoint();
-	};
-	if ( $('#main-map').length != 0) {
-		$('#updates-list').hide();
-		var currentMap = new GenerateMap();
-		currentMap.setMap('main-map', 10);
-		currentMap.createBusinessesPoints();
-		currentMap.createSurfPoints();
-		currentMap.filterPoints();
+	var token = '<%= ENV["mapbox_access_token"] %>';
+    if ($('#map-for-user').length != 0) {
+        var currentMap = new GenerateMap(token);
+        currentMap.setMap('map-for-user', 14);
+        currentMap.createClickPoint();
+        currentMap.searchPoint();
+    };
+    if ($('#main-map').length != 0) {
+        $('#updates-list').hide();
+        var currentMap = new GenerateMap(token);
+        currentMap.setMap('main-map', 10);
+        currentMap.createBusinessesPoints();
+        currentMap.createSurfPoints();
+        currentMap.filterPoints();
 
-	};
-	if ( $('.btn-pref .btn').length !=0 ) {
-		var buttonUpdater = Object.create(updateButtons);
-		buttonUpdater.setInitialListeners();
-	};
+    };
+    if ($('.btn-pref .btn').length != 0) {
+        var buttonUpdater = Object.create(updateButtons);
+        buttonUpdater.setInitialListeners();
+    };
 })

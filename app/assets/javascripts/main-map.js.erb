@@ -1,5 +1,5 @@
-function GenerateMap() {
-    this.token = '<%= ENV["mapbox_access_token"] %>';
+function GenerateMap(token) {
+    this.token = token;
     this.surfJson = [];
     this.bizJson = [];
     this.map = "";
@@ -78,7 +78,7 @@ GenerateMap.prototype.createSpotsLayer = function() {
 GenerateMap.prototype.createBusinessesLayer = function() {
     var self = this;
     self.businessLayer.on('layeradd', function(e) {
-        var marker = e.layer,
+        var marker = e.layer
             feature = marker.feature;
         var popupContent = '<a target="_blank" class="popup" href="' + feature.properties.url + '">' +
             '<img src="' + feature.properties.image + '" />' +
