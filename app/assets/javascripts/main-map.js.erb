@@ -76,11 +76,11 @@ GenerateMap.prototype.createSpotsLayer = function() {
     self.spotsLayer.setGeoJSON(self.surfJson);
 }
 
-GenerateMap.prototype.createBusinessesLayer = function(biz) {
+GenerateMap.prototype.createBusinessesLayer = function() {
     var self = this;
     self.businessLayer.on('layeradd', function(e) {
         var marker = e.layer
-            feature = marker.feature;
+        feature = marker.feature;
         var popupContent = '<a class="popup" href="' + feature.properties.url + '">' +
             '<img src="' + feature.properties.image + '" />' +
             feature.properties.title +
@@ -106,16 +106,16 @@ GenerateMap.prototype.showChecks = function() {
         var marker = e.layer,
             feature = marker.feature;
         var spotHtml = "";
-        var newUpdate = '<a href="/surfspots/'+ feature.info.id + '/updates/new"><div class="btn btn-primary new-update">New Update for this spot</div></a>';
+        var newUpdate = '<a href="/surfspots/' + feature.info.id + '/updates/new"><div class="btn btn-primary new-update">New Update for this spot</div></a>';
         spotHtml += newUpdate;
 
-        feature.info.spotupdates.forEach(function (update) {
+        feature.info.spotupdates.forEach(function(update) {
             var upPics = '<div class="update-pics"><div class="up-pic">'
-            update[1].forEach(function (url) {
+            update[1].forEach(function(url) {
                 upPics += '<img src="' + url + '"/>'
             })
             upPics += "</div></div>"
-            var upDiv = '<a href="" class="modal-link" data-url-call="/surfspots/'+ feature.info.id + '/updates/'+ update[0].id + '.json" data-toggle="modal" data-target="#myModal"><div class="update-box"><h4>' + update[2] + '</h4>' + upPics + '</div></a>'
+            var upDiv = '<a href="" class="modal-link" data-url-call="/surfspots/' + feature.info.id + '/updates/' + update[0].id + '.json" data-toggle="modal" data-target="#myModal"><div class="update-box well"><h4>' + update[2] + '</h4>' + upPics + '</div></a>'
             spotHtml += upDiv;
         })
         $('#updates-list').html(spotHtml);
@@ -133,41 +133,51 @@ GenerateMap.prototype.fillModal = function() {
             // context: this,
             url: url,
             success: function(data) {
-                $('.modal-title').text(data.modal_info.surfspot.name + ' on ' + data.modal_info.pictures_time)
-                var updatePics = "";
-                data.modal_info.pictures.forEach(function(url) {
-                    updatePics += '<img src="' + url + '" class="public-avatar"/>'
-                })
-                $('.modal-pictures').html(updatePics);
-                var conditions = "";
-                conditions += '<div class="cond-detail"><p>Waves: ' + data.modal_info.update.wave_height + ' m</p>'
-                conditions += '<p>Wind: ' + data.modal_info.update.wind + '</p></div>'
-                conditions += '<div class="cond-detail"><p>Crowds: ' + data.modal_info.update.crowds + '</p>'
-                var rating = "";
-                if (data.modal_info.update.rating === '0') {
-                    rating += '<span class="glyphicon glyphicon-ban-circle"></span>'
-                } else {
-                    for (var i = 0; i < data.modal_info.update.rating; i++) {
-                        rating += '<span class="glyphicon glyphicon-star"></span>';
-                    };
-                }
-                conditions += '<p>Rating: ' + rating + '</p></div>'
-                conditions += '<div class="cond-detail"><p>Comment: ' + data.modal_info.update.comment + '</p></div>'
-                $('.conditions').html(conditions);
-                var contributor = '<h3> Surfing conditions update provided by ' + '<a href="' + data.modal_info.contributor.link + '">' + data.modal_info.contributor.name + '</a></h3>'
-                    contributor += '<p>' + data.modal_info.contributor.address + ', ' + data.modal_info.contributor.city + '</p>'
-                $('.contributor').html(contributor);
-                var chosenAd = ""
-                    chosenAd += '<p><img src="' + data.modal_info.special.specimg + '" class="public-special"/> </p>';
-                    chosenAd += '<h3>' + data.modal_info.special.special.title + '</h3>';
-                    chosenAd += '<p>' + data.modal_info.special.special.description + '</p>';
-                    chosenAd += '<p>' + data.modal_info.special.special.days_applicable + '</p>';
-                $('.chosen-add').html(chosenAd);
+                self.generateModalHeader(data);
+                self.generateModalBody(data);
             }
         })
 
     })
+}
+GenerateMap.prototype.generateModalHeader = function(data) {
+    $('.modal-title').text(data.modal_info.surfspot.name + ' on ' + data.modal_info.pictures_time);
+    
+    var conditions = "";
+    conditions += '<div class="row"><div class="col-sm-6">Waves: ' + data.modal_info.update.wave_height + ' m</div>';
+    conditions += '<div class="col-sm-6">Wind: ' + data.modal_info.update.wind + '</div></div>';
+    conditions += '<div class="row"><div class="col-sm-6">Crowds: ' + data.modal_info.update.crowds + '</div>';
+    var rating = "";
+    if (data.modal_info.update.rating === '0') {
+        rating += '<span class="glyphicon glyphicon-ban-circle"></span>';
+    } else {
+        for (var i = 0; i < data.modal_info.update.rating; i++) {
+            rating += '<span class="glyphicon glyphicon-star"></span>';
+        };
+    }
+    conditions += '<div class="col-sm-6">Rating: ' + rating + '</div></div>';
+    conditions += '<div class="row"><div class="col-sm-12">Comment: ' + data.modal_info.update.comment + '</div></div>';
+    $('.conditions').html(conditions);
+    
+    var contributor = '<h3> Surfing conditions update provided by ' + '<a href="' + data.modal_info.contributor.link + '">' + data.modal_info.contributor.name + '</a></h3>'
+    contributor += '<p>' + data.modal_info.contributor.address + ', ' + data.modal_info.contributor.city + '</p>'
+    $('.contributor').html(contributor);
 
+}
+
+GenerateMap.prototype.generateModalBody = function(data) {
+    var updatePics = "";
+    data.modal_info.pictures.forEach(function(url) {
+        updatePics += '<img src="' + url + '" class="public-avatar"/>'
+    })
+    $('.modal-pictures').html(updatePics);
+    
+    var chosenAd = ""
+    chosenAd += '<p><img src="' + data.modal_info.special.specimg + '" class="public-special"/> </p>';
+    chosenAd += '<h3>' + data.modal_info.special.special.title + '</h3>';
+    chosenAd += '<p>' + data.modal_info.special.special.description + '</p>';
+    chosenAd += '<p>' + data.modal_info.special.special.days_applicable + '</p>';
+    $('.chosen-add').html(chosenAd);
 }
 
 GenerateMap.prototype.filterPoints = function() {

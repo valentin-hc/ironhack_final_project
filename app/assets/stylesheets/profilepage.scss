@@ -56,6 +56,51 @@
     left: 0;
     right: 0;
 }
+.well {
+    border-color: transparent;
+    background-color: rgba(0,0,0,0.4);
+    color: #fff;
+}
+.well input, textarea {
+    background: transparent;
+    border: 1px solid white;
+
+}
+
+#special_image {
+    display: inline-block;
+    padding: 100px 0 0 0;
+    height: 100px;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: url("/images/add.png") no-repeat;
+    border-color: transparent;
+}
+#user_avatar {
+    display: inline-block;
+    padding: 100px 0 0 0;
+    height: 100px;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: url("/images/add.png") no-repeat;
+    border-color: transparent;
+}
+#user_business_avatar {
+    display: inline-block;
+    padding: 100px 0 0 0;
+    height: 100px;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: url("/images/add.png") no-repeat;
+    border-color: transparent;
+}
+
 .card.hovercard .card-info .card-title {
     padding:0 5px;
     font-size: 20px;
