@@ -64,13 +64,13 @@ GenerateMap.prototype.createSpotsLayer = function() {
         if (feature.info.spotupdates[0] !== undefined) {
             imageUrl = feature.info.spotupdates[0][1][0];
         }
-        var popupContent = '<a target="_blank" class="popup" href="' + feature.properties.url + '">' +
-            '<img src="' + imageUrl + '" />' +
+        var popupContent = '<a class="popup" href="' + feature.properties.url + '">' +
+            '<img src="' + imageUrl + '" />' + '<br/>' +
             feature.properties.title +
             '</a>';
         marker.bindPopup(popupContent, {
             closeButton: false,
-            minWidth: 320
+            minWidth: 200
         });
     });
     self.spotsLayer.setGeoJSON(self.surfJson);
@@ -81,17 +81,15 @@ GenerateMap.prototype.createBusinessesLayer = function(biz) {
     self.businessLayer.on('layeradd', function(e) {
         var marker = e.layer
             feature = marker.feature;
-        var popupContent = '<a target="_blank" class="popup" href="' + feature.properties.url + '">' +
+        var popupContent = '<a class="popup" href="' + feature.properties.url + '">' +
             '<img src="' + feature.properties.image + '" />' +
             feature.properties.title +
             '</a>';
         marker.bindPopup(popupContent, {
             closeButton: false,
-            minWidth: 320
+            minWidth: 200
         });
     });
-    console.log(self.bizJson);
-    console.log(self.bizJson);
 
     self.businessLayer.setGeoJSON(self.bizJson);
 
