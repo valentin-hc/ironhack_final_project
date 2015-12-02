@@ -37,7 +37,7 @@
 	flex-direction: row;
 }
 #updates-list {
-	width: 20%;
+	width: 25%;
 	flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -49,16 +49,40 @@
 	height: 700px;
 	flex-grow: 1;
 }
+@media screen and (max-width: 800px) {
+  #main-map-container {
+  display: flex;
+  flex-direction: column;
+  }
+  #updates-list {
+    width: 100%;
+    height: 300px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+
+  #main-map {
+    height: 700px;
+    flex-grow: 1;
+  }
+
+}
 
 .leaflet-popup-content img {
   max-width:100%;
  }
 
+.menu-ui-drop {
+  min-width: 120px;
+}
 
 .menu-ui {
   background:#fff;
   position:absolute;
-  top:90px;right:10px;
+  top:90px;
+  right:10px;
   z-index:1;
   border-radius:3px;
   width:120px;

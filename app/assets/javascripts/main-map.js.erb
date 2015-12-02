@@ -50,6 +50,7 @@ GenerateMap.prototype.createSurfPoints = function() {
             self.surfJson = data.spots
             self.createSpotsLayer();
             self.showChecks();
+            self.hideChecks();
         }
     });
 }
@@ -75,7 +76,7 @@ GenerateMap.prototype.createSpotsLayer = function() {
     self.spotsLayer.setGeoJSON(self.surfJson);
 }
 
-GenerateMap.prototype.createBusinessesLayer = function() {
+GenerateMap.prototype.createBusinessesLayer = function(biz) {
     var self = this;
     self.businessLayer.on('layeradd', function(e) {
         var marker = e.layer
@@ -89,10 +90,18 @@ GenerateMap.prototype.createBusinessesLayer = function() {
             minWidth: 320
         });
     });
+    console.log(self.bizJson);
+    console.log(self.bizJson);
+
     self.businessLayer.setGeoJSON(self.bizJson);
 
 }
-
+GenerateMap.prototype.hideChecks = function() {
+    $('#main-map').on('click', function() {
+        $('#updates-list').fadeOut();
+        $('#menu-ui').fadeIn();
+    })
+}
 GenerateMap.prototype.showChecks = function() {
     var self = this;
     self.spotsLayer.on('click', function(e) {
@@ -113,6 +122,7 @@ GenerateMap.prototype.showChecks = function() {
         })
         $('#updates-list').html(spotHtml);
         $('#updates-list').fadeIn();
+        $('#menu-ui').fadeOut();
         self.fillModal();
     })
 }

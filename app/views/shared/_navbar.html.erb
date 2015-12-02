@@ -1,26 +1,43 @@
 <div class="navcontainer">
 	<div class="header">
 		<div class="header-top">
+			<div class="logo-box">
 			<div class="top-logo">
-				<%= link_to image_tag('/images/neptunelogo.jpg'), root_path %>
-			</div>
-			<div class="top-right-buttons">
-				<% if current_user %>
-				<%= link_to 'Logout', destroy_user_session_path, method: :delete %>
-				<%= link_to image_tag(current_user.avatar.url(:thumb)), profile_path(current_user) %>
-				<% else %>
-					<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-						<div class="top-right-button-elem-wrapper">
-						<div class="top-right-button-elem">
-						<%= f.email_field :email, :placeholder => "Email", autofocus: true, :class => 'form-control smaller-input' %>
-						<%= f.password_field :password, autocomplete: "off", :placeholder => "Password", :class => 'form-control smaller-input' %>
-						</div>
-						<div class="top-right-button-elem">
-						<%= button_tag(type: 'submit', class: "btn btn-primary") do %>Log in<%end%>
-						</div>
+				<div class="top-logo-text"><%= link_to image_tag('/images/neptunelogo.jpg'), root_path %></div>
+				<div class="top-logo-text">Neptune's Crib...<span class="glyphicon glyphicon-home"></div>
 
-						</div>
-					<% end %>
+			</div>
+
+			</div>
+			<div class="top-right-buttons btn">
+				<% if current_user %>
+				<div class="dropdown">
+					<div class="top-logo-text" data-toggle="dropdown"><%= image_tag(current_user.avatar.url(:thumb)) %>
+					<%= current_user.username %><span class="caret"></span></div>
+					<ul class="dropdown-menu menu-ui-drop">
+						<li><%= link_to 'My profile', profile_path(current_user) %></li>
+						<li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+
+					</ul>
+				</div>
+				<% else %>
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Login to contribute <span class="caret" ></span></button>
+					<ul class="dropdown-menu menu-ui-drop">
+						<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+						<li class="login-box"><%= f.email_field :email, :placeholder => "Email", autofocus: true, :class => 'form-control smaller-input' %>
+						</li>
+						<li class="login-box"><%= f.password_field :password, autocomplete: "off", :placeholder => "Password", :class => 'form-control smaller-input' %>
+						</li>
+						<li class="login-box"><%= button_tag(type: 'submit', class: "btn btn-primary") do %>Log in<%end%>
+						
+						<%= button_tag(:type => 'button', class: "btn btn-primary") do %>
+						<%= link_to 'Or sign up', new_user_registration_path %>
+						<% end %>
+						</li>
+						<% end %>
+					</ul>
+				</div>
 				<% end %>
 			</div>
 		</div>

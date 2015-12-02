@@ -2,11 +2,24 @@
 <div id="updates-list"></div>
 <div id="main-map"></div>
 </div>
-<nav id='menu-ui' class='menu-ui'>
+
+
+<!-- <nav id='menu-ui' class='menu-ui'>
   <a href='#' class='active' id='filter-all'>All</a>
   <a href='#' id='filter-spots'>Surf Spots</a>
   <a href='#' id='filter-businesses'>Contributors</a>
 </nav>
+ -->
+
+<div class="dropdown menu-ui" id="menu-ui">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Map Options
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu menu-ui-drop">
+    <li><a href='#' class='active' id='filter-all'>All</a></li>
+    <li><a href='#' id='filter-spots'>Surf Spots</a><li>
+    <li><a href='#' id='filter-businesses'>Contributors</a></li>
+  </ul>
+</div>
 
 
 
