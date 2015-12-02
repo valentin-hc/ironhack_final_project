@@ -1,0 +1,38 @@
+<h4>Make a new ad</h4>
+<%= form_for(@surfspot) do |f| %>
+<div class="field">
+	<%= f.label :name %><br/ >
+	<%= f.text_field :name %>
+</div>
+<div class="field">
+	<%= f.label :country %><br/ >
+	<%= f.text_field :country %>
+</div>
+<div class="field">
+	<%= f.label :area %><br/ >
+	<%= f.text_field :area %>
+</div>
+<div class="field">
+	<%= f.label :description %><br/ >
+	<%= f.text_area :description %>
+</div>
+<div class="field">
+	<%= f.label :breaktype %><br/ >
+	<%= f.text_field :breaktype %>
+</div>
+<div class="field">
+	<%= f.label :avatar %><br/ >
+	<%= f.file_field :avatar %>
+</div>
+<div class="field">
+	<%= f.label :longitude %><br/ >
+	<%= f.number_field :longitude, :class => 'text_field', :step => 'any' %>
+</div>
+<div class="field">
+	<%= f.label :latitude %><br/ >
+	<%= f.number_field :latitude, :class => 'text_field', :step => 'any'%><br/ >
+</div>
+<div class="actions">
+	<%= f.submit "Create new Surfspot", :class => 'btn btn-primary' %>
+</div>
+<% end %>

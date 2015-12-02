@@ -23,11 +23,17 @@ class SurfspotsController < ApplicationController
 		end
 		@surfspot = Surfspot.new
 	end
-	def create		
+	def create
+		surfspot = Surfspot.new(surfspot_params)
+		if surfspot.save
+			redirect_to surfspot_path(surfspot)
+		else
+			redirect_to new_surfspot_path
+		end		
 	end
 
 	private
 	def surfspot_params
-		params.require(:surfspot).permit(:name, :country, :area, :description, :type, :longitude, :latitude)
+		params.require(:surfspot).permit(:name, :country, :area, :description, :type, :longitude, :latitude, :avatar)
 	end
 end
