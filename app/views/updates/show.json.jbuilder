@@ -5,7 +5,7 @@ json.set! :modal_info do
 		json.set! :name, @user.business_name
 		json.set! :address, @user.address
 		json.set! :city, @user.city
-		json.set! :link, "/profiles/public/#{@user.id}"
+		json.set! :link, "/profiles/#{@user.id}"
 	end
 	update_pics = []
 	@update.pictures.each do |pic|
