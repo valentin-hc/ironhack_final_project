@@ -44,9 +44,11 @@
 							<p> <%= @profile.business_description %> </p>
 						</div>
 						<div class="col-md-4">
+							<% if current_user %>
 							<% if @profile.id == current_user.id %>
 							<h3>Wanna make some changes?</h3>
 							<p><%= link_to "Edit your profile", edit_user_registration_path %></p>
+							<% end %>
 							<% end %>
 							
 						</div>
@@ -57,6 +59,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-6">
+							<% if current_user %>
 							<% if @profile.id == current_user.id %>
 							<h4>Make a new ad</h4>
 							<%= form_for(@special, as: @special, url: specials_path) do |f| %>
@@ -79,6 +82,7 @@
 							<div class="actions">
 								<%= f.submit "Create new Ad", :class => 'btn btn-primary' %>
 							</div>
+							<% end %>
 							<% end %>
 							<% end %>
 						</div>
