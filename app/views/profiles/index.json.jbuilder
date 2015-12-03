@@ -9,7 +9,7 @@ json.businesses @users do |user|
 			json.set! :title, user.business_name
 			json.set! :description, user.business_description
 			json.set! :image, user.business_avatar.url
-			json.set! :url, "/profiles/public/#{user.id}"
+			json.set! :url, "/profiles/#{user.id}"
 			json.set! "marker-color", '#ff8888'
 			json.set! "marker-size", 'large'
 			case user.business_type

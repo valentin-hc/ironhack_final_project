@@ -11,10 +11,10 @@
 			</div>
 			<div class="top-right-buttons btn">
 				<% if current_user %>
-				<div class="dropdown">
-					<div class="top-logo-text" data-toggle="dropdown"><%= image_tag(current_user.avatar.url(:thumb)) %>
-					<%= current_user.username %><span class="caret"></span></div>
-					<ul class="dropdown-menu menu-ui-drop">
+				<div class="dropdown dp-right">
+					<div class="top-logo-text" data-toggle="dropdown"><%= image_tag(current_user.avatar.url(:thumb)) %></div>
+					<div class="top-logo-text" data-toggle="dropdown"><%= current_user.username %><span class="caret"></span></div>
+					<ul class="dropdown-menu menu-login-drop">
 						<li><%= link_to 'My profile', profile_path(current_user) %></li>
 						<li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
 
@@ -22,8 +22,8 @@
 				</div>
 				<% else %>
 				<div class="dropdown">
-					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Login to contribute <span class="caret" ></span></button>
-					<ul class="dropdown-menu menu-ui-drop">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Login <span class="caret" ></span></button>
+					<ul class="dropdown-menu menu-login-drop">
 						<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 						<li class="login-box"><%= f.email_field :email, :placeholder => "Email", autofocus: true, :class => 'form-control smaller-input' %>
 						</li>
@@ -32,7 +32,7 @@
 						<li class="login-box"><%= button_tag(type: 'submit', class: "btn btn-primary") do %>Log in<%end%>
 						
 						<%= button_tag(:type => 'button', class: "btn btn-primary") do %>
-						<%= link_to 'Or sign up', new_user_registration_path %>
+						<%= link_to 'Sign up', new_user_registration_path %>
 						<% end %>
 						</li>
 						<% end %>

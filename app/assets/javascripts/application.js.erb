@@ -18,12 +18,17 @@
 //= require_tree .
 
 $(document).on('page:change', function() {
+    $('.dropdown-menu').css('left', 'auto');
 	var token = '<%= ENV["mapbox_access_token"] %>';
     if ($('#map-for-user').length != 0) {
         var currentMap = new GenerateMap(token);
         currentMap.setMap('map-for-user', 14);
         currentMap.createClickPoint();
         currentMap.searchPoint();
+    };
+    if ($('#tab2').length != 0) {
+        var currentMap = new GenerateMap(token);
+        currentMap.fillModal();
     };
     if ($('#main-map').length != 0) {
         $('#updates-list').hide();

@@ -4,11 +4,9 @@ class ProfilesController < ApplicationController
 		@users = User.all
 	end
 	def show
-		@profile = current_user
+		@profile = User.find_by(id: params[:id])
 		@special = Special.new
-		@specials = current_user.specials
-	end
-	def show_public
-		@profile = User.find(params[:id])
+		@specials = @profile.specials
+		@updates = @profile.updates.order(updated_at: :desc)
 	end
 end

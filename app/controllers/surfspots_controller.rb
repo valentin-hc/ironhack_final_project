@@ -15,6 +15,7 @@ class SurfspotsController < ApplicationController
 	end
 	def show
 		@surfspot = Surfspot.find(params[:id])
+		@updates = @surfspot.updates.order(updated_at: :desc)
 	end
 
 	def new

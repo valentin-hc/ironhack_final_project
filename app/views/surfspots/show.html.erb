@@ -40,14 +40,63 @@
 					<p><%= @surfspot.name %></p>
 					<p><%= @surfspot.breaktype %></p>
 				</div>
-				<div class="col-md-4"></div>
+				<div class="col-md-4">
+				</div>
 			</div>
 		</div>
 		<div class="tab-pane fade in" id="tab2">
-			<h3>This is tab 2</h3>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<% @updates.each do |update| %>
+					<a href="" class="modal-link" data-url-call="/surfspots/<%= @surfspot.id %>/updates/<%= update.id %>.json" data-toggle="modal" data-target="#myModal">
+						<div class="update-box well">
+							<h4><%= update.updated_at.strftime('%A, %d %b %Y %l:%M %p') %></h4>
+							<div class="update-pics">
+								<% update.pictures.each do |pic| %>
+								<div class="up-pic"><img src="<%= pic.image.url(:medium) %>"></div>
+								<% end %>
+							</div>
+						</div>
+					</a>
+					<% end %>
+				</div>
+				<div class="col-md-4"></div>
+			</div>
 		</div>
 		<div class="tab-pane fade in" id="tab3">
 			<h3>This is tab 3</h3>
+		</div>
+	</div>
+</div>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+<div class="modal-dialog modal-lg">
+	<!-- Modal content-->
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title"></h4>
+			<div class="conditions myradio">
+			</div>
+			<div class="contributor"></div>
+		</div>
+		<div class="modal-body modal-split">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="chosen-add">Adds</div>
+				</div>
+				<div class="col-md-6 modal-pictures">Pics</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		</div>
 	</div>
 </div>

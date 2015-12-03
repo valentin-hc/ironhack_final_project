@@ -2,28 +2,28 @@
 	<div class="col-lg-12 col-sm-12 full-width">
 		<div class="card hovercard">
 			<div class="card-background">
-				<img class="card-bkimg" alt="" src="<%= "#{@profile.avatar.url(:medium)}" %>">
+				<img class="card-bkimg" alt="" src="<%= "#{@profile.business_avatar.url(:medium)}" %>">
 			</div>
 			<div class="useravatar">
-				<img alt="" src="<%= "#{@profile.avatar.url(:medium)}" %>">
+				<img alt="" src="<%= "#{@profile.business_avatar.url(:medium)}" %>">
 			</div>
-			<div class="card-info"> <span class="card-title"><%= "#{@profile.email}" %> </span>
+			<div class="card-info"> <span class="card-title"><%= "#{@profile.business_name}" %> </span>
 		</div>
 	</div>
 	<div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
 		<div class="btn-group" role="group">
-			<button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-			<div class="hidden-xs">My profile</div>
+			<button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+			<div class="hidden-xs">Business Information</div>
 			</button>
 		</div>
 		<div class="btn-group" role="group">
 			<button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-			<div class="hidden-xs">My adds</div>
+			<div class="hidden-xs">Latest deals</div>
 			</button>
 		</div>
 		<div class="btn-group" role="group">
 			<button type="button" id="following" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
-			<div class="hidden-xs">My contributions</div>
+			<div class="hidden-xs">Latest contributions</div>
 			</button>
 		</div>
 	</div>
@@ -34,7 +34,7 @@
 					<div class="row">
 						<div class="col-md-4">
 							<h3> <%= @profile.business_name %></h3>
-							<p><img class="public-avatar" src="<%= current_user.business_avatar.url(:medium) %>"></p>
+							<p><img class="public-avatar" src="<%= @profile.business_avatar.url(:medium) %>"></p>
 						</div>
 						<div class="col-md-4">
 							<h3> Business details</h3>
@@ -44,8 +44,10 @@
 							<p> <%= @profile.business_description %> </p>
 						</div>
 						<div class="col-md-4">
+							<% if @profile.id == current_user.id %>
 							<h3>Wanna make some changes?</h3>
 							<p><%= link_to "Edit your profile", edit_user_registration_path %></p>
+							<% end %>
 							
 						</div>
 					</div>
@@ -55,6 +57,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-6">
+							<% if @profile.id == current_user.id %>
 							<h4>Make a new ad</h4>
 							<%= form_for(@special, as: @special, url: specials_path) do |f| %>
 							<div class="field">
@@ -77,6 +80,7 @@
 								<%= f.submit "Create new Ad", :class => 'btn btn-primary' %>
 							</div>
 							<% end %>
+							<% end %>
 						</div>
 						<div class="col-md-6">
 							<% @specials.each do |special| %>
@@ -90,8 +94,51 @@
 				</div>
 			</div>
 			<div class="tab-pane fade in" id="tab3">
-				<h3>This is tab 3</h3>
+				<div class="row">
+					<div class="col-md-4"></div>
+					<div class="col-md-4">
+						<% @updates.each do |update| %>
+						<a href="" class="modal-link" data-url-call="/surfspots/<%= update.surfspot_id %>/updates/<%= update.id %>.json" data-toggle="modal" data-target="#myModal">
+							<div class="update-box well">
+								<h4><%= update.updated_at.strftime('%A, %d %b %Y %l:%M %p') %></h4>
+								<div class="update-pics">
+									<% update.pictures.each do |pic| %>
+									<div class="up-pic"><img src="<%= pic.image.url(:medium) %>"></div>
+									<% end %>
+								</div>
+							</div>
+						</a>
+						<% end %>
+					</div>
+					<div class="col-md-4"></div>
+				</div>
 			</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+<div class="modal-dialog modal-lg">
+	<!-- Modal content-->
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title"></h4>
+			<div class="conditions myradio">
+			</div>
+			<div class="contributor"></div>
+		</div>
+		<div class="modal-body modal-split">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="chosen-add">Adds</div>
+				</div>
+				<div class="col-md-6 modal-pictures">Pics</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		</div>
 	</div>
 </div>
