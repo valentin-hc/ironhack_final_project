@@ -33,15 +33,18 @@
 .top-logo-text{
 	flex-grow: 1;
 	color: white;
-
 }
+
 .top-logo-text img { 
 	border-radius: 50%;
 	max-height: 50px;
 }
+.spin img {
+  animation: spin 4s infinite linear;
+}
 
 .top-logo-text a {
-	color: white;
+	color: rgb(33, 178, 210);
 	text-decoration: none;
 }
 
@@ -76,4 +79,13 @@
 
 .white {
 	color: white;
+}
+
+@keyframes spin{
+  0% {
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
 }

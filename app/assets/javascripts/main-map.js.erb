@@ -218,6 +218,8 @@ GenerateMap.prototype.createClickPoint = function() {
         self.map.setView(e.latlng);
         $('#user_latitude').val(e.latlng.lat);
         $('#user_longitude').val(e.latlng.lng);
+        $('#surfspot_latitude').val(e.latlng.lat);
+        $('#surfspot_longitude').val(e.latlng.lng);
 
     })
 }

@@ -32,6 +32,10 @@
 	<%= f.label :latitude %><br/ >
 	<%= f.number_field :latitude, :class => 'text_field', :step => 'any'%><br/ >
 </div>
+<div id="map-container">
+    <p>Pick surfspot location on the map !</p>
+    <div id="map-for-user" class="map"></div>
+  </div>
 <div class="actions">
 	<%= f.submit "Create new Surfspot", :class => 'btn btn-primary' %>
 </div>
