@@ -4,6 +4,10 @@
     font-family: Copperplate, 'Copperplate Gothic Light', fantasy;
     font-size: 15px;
 }
+.title:hover {
+	color: #fff;
+	text-decoration: none;
+}
 .navcontainer {
 	width: 100%;
 	display: flex;
@@ -70,6 +74,7 @@
 }
 .top-right-buttons a {
 	color: #fff;
+	text-decoration: none;
 }
 .login-box {
 	padding-right: 2px;
@@ -96,6 +101,7 @@
   }
 }
 
-.user-button {
-	margin-right: 5px;
+.full-width {
+	width: 100%;
 }
+

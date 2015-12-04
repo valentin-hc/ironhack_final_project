@@ -3,35 +3,36 @@
 		<div class="header-top">
 			<div class="logo-box">
 				<div class="top-logo">
-					<div class="top-logo-text spin"><%= link_to image_tag('/images/neptunelogo2.svg'), root_path %></div>
+					<div class="top-logo-text spin"><%= link_to image_tag('/images/waveboard-icon.png'), root_path %></div>
 				</div>
 			</div>
 			<div><%= link_to "NEPTUNE'S CRIB", root_path, :class => 'title' %></div>
 			<div class="top-right-buttons">
 				<% if current_user %>
-				<div class="dropdown dp-right">
+				<div class="dropdown dp-right" id="example" rel="popover" data-placement="bottom" data-content="" data-original-title="Menu">
 					<div class="top-logo-text user-button" data-toggle="dropdown"><%= image_tag(current_user.avatar.url(:thumb)) %><span class="caret"></span></div>
 					
-					<ul class="dropdown-menu menu-login-drop">
-						<li><%= link_to 'My profile', profile_path(current_user) %></li>
-						<li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
-					</ul>
+					<div id="popover_content_wrapper" style="display: none;">
+						<div class="btn btn-primary"><%= link_to 'My profile', profile_path(current_user) %></div>
+						<p></p>
+						<div class="btn btn-primary full-width"><%= link_to 'Logout', destroy_user_session_path, method: :delete %></div>
+					</div>
 				</div>
 				<% else %>
-				<div class="dropdown btn">
+				<div class="" id="example" rel="popover" data-placement="bottom" data-content="" data-original-title="Login">
 					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Login <span class="caret" ></span></button>
-					<ul class="dropdown-menu menu-login-drop">
+					<ul class="dropdown-menu menu-login-drop" id="popover_content_wrapper">
 						<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-						<li class="login-box"><%= f.email_field :email, :placeholder => "Email", autofocus: true, :class => 'form-control smaller-input' %>
-						</li>
-						<li class="login-box"><%= f.password_field :password, autocomplete: "off", :placeholder => "Password", :class => 'form-control smaller-input' %>
-						</li>
-						<li class="login-box"><%= button_tag(type: 'submit', class: "btn btn-primary") do %>Log in<%end%>
-							
-							<%= button_tag(:type => 'button', class: "btn btn-primary") do %>
+						<p class="login-box"><%= f.email_field :email, :placeholder => "Email", autofocus: true, :class => 'form-control smaller-input' %>
+						</p>
+						<p class="login-box"><%= f.password_field :password, autocomplete: "off", :placeholder => "Password", :class => 'form-control smaller-input' %>
+						</p>
+						<p class="login-box"><%= button_tag(type: 'submit', class: "btn btn-primary full-width") do %>Log in<%end%>
+							<p></p>
+							<%= button_tag(:type => 'button', class: "btn btn-primary full-width") do %>
 							<%= link_to 'Sign up', new_user_registration_path %>
 							<% end %>
-						</li>
+						</p>
 						<% end %>
 					</ul>
 				</div>

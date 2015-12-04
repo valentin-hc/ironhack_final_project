@@ -18,8 +18,7 @@
 //= require_tree .
 
 $(document).on('page:change', function() {
-    $('.dropdown-menu').css('left', 'auto');
-	var token = '<%= ENV["mapbox_access_token"] %>';
+    var token = '<%= ENV["mapbox_access_token"] %>';
     if ($('#map-for-user').length != 0) {
         var currentMap = new GenerateMap(token);
         currentMap.setMap('map-for-user', 14);
@@ -43,4 +42,12 @@ $(document).on('page:change', function() {
         var buttonUpdater = Object.create(updateButtons);
         buttonUpdater.setInitialListeners();
     };
+    $(function() {
+        $('[rel=popover]').popover({
+            html: true,
+            content: function() {
+                return $('#popover_content_wrapper').html();
+            }
+        });
+    });
 })
